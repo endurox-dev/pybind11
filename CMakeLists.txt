@@ -84,7 +84,8 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
   set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 else()
   set(PYBIND11_MASTER_PROJECT OFF)
-  set(pybind11_system SYSTEM)
+  # Mavimax, WHY? Cases on AIX GCC to use isystem for the Pybind, which falls back to extern C
+  #set(pybind11_system SYSTEM)
 endif()
 
 # Options
