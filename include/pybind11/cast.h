@@ -1338,7 +1338,7 @@ inline namespace literals {
 /** \rst
     String literal version of `arg`
  \endrst */
-constexpr arg operator"" _a(const char *name, size_t) { return arg(name); }
+constexpr arg operator""_a(const char *name, size_t) { return arg(name); }
 } // namespace literals
 
 PYBIND11_NAMESPACE_BEGIN(detail)

@@ -1509,7 +1509,7 @@ inline namespace literals {
 /** \rst
     String literal version of `str`
  \endrst */
-inline str operator"" _s(const char *s, size_t size) { return {s, size}; }
+inline str operator""_s(const char *s, size_t size) { return {s, size}; }
 } // namespace literals
 
 /// \addtogroup pytypes
