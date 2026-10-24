@@ -635,10 +635,13 @@ inline PyObject *make_new_python_type(const type_record &rec) {
 
     char *tp_doc = nullptr;
     if (rec.doc && options::show_user_defined_docstrings()) {
-        /* Allocate memory for docstring (using PyObject_MALLOC, since
-           Python will free this later on) */
+        /* Allocate memory for docstring (Python will free this later on) */
         size_t size = std::strlen(rec.doc) + 1;
+#if PY_VERSION_HEX >= 0x030D0000
+        tp_doc = (char *) PyMem_MALLOC(size);
+#else
         tp_doc = (char *) PyObject_MALLOC(size);
+#endif
         std::memcpy((void *) tp_doc, rec.doc, size);
     }
 

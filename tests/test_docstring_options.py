@@ -1,3 +1,8 @@
+import os
+import subprocess
+import sys
+
+import pybind11_tests
 from pybind11_tests import docstring_options as m
 
 
@@ -39,3 +44,21 @@ def test_docstring_options():
     # Suppression of user-defined docstrings for non-function objects
     assert not m.DocstringTestFoo.__doc__
     assert not m.DocstringTestFoo.value_prop.__doc__
+
+
+def test_class_docstring_shutdown_with_debug_allocator():
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            "from pybind11_tests import docstring_options as m; "
+            "assert m.DocstringTestBar.__doc__ == 'This is a class docstring'",
+        ],
+        cwd=os.path.dirname(pybind11_tests.__file__),
+        env=dict(os.environ, PYTHONMALLOC="debug"),
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True,
+        timeout=30,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr

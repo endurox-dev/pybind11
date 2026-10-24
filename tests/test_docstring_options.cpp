@@ -85,4 +85,7 @@ TEST_SUBMODULE(docstring_options, m) {
                           &DocstringTestFoo::setValue,
                           "This is a property docstring");
     }
+
+    struct DocstringTestBar {};
+    py::class_<DocstringTestBar>(m, "DocstringTestBar", "This is a class docstring");
 }
