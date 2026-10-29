@@ -87,7 +87,8 @@ if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
   endif()
 else()
   set(PYBIND11_MASTER_PROJECT OFF)
-  set(pybind11_system SYSTEM)
+  # Mavimax: AIX GCC wraps -isystem headers in extern "C", which breaks C++
+  #set(pybind11_system SYSTEM)
   set(_pybind11_findpython_default COMPAT)
 endif()
 
